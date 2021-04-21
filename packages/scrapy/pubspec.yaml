@@ -3,6 +3,7 @@ description: A new Flutter package project.
 version: 0.0.1
 author:
 homepage:
+publish_to: none
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -14,10 +15,10 @@ dependencies:
 
 
   core:
-  git:
-    url: git@github.com:Hugo-Coutinho/feeds_packages.git
-    path: packages/core
-    ref: master
+    git:
+      url: git@github.com:Hugo-Coutinho/feeds_packages.git
+      path: packages/core
+      ref: master
 #      path: /Users/hugo.coutinho/Developer/personal/feeds_packages/packages/core
 
   web_scraper: 0.0.9

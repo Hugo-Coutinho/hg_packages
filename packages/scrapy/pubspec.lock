@@ -109,9 +109,11 @@ packages:
   core:
     dependency: "direct main"
     description:
-      path: "/Users/hugo.coutinho/Developer/personal/feeds_packages/packages/core"
-      relative: false
-    source: path
+      path: "packages/core"
+      ref: master
+      resolved-ref: "85bbf4e714d201149de69b15fec85041caa345e6"
+      url: "git@github.com:Hugo-Coutinho/feeds_packages.git"
+    source: git
     version: "0.0.1"
   crypto:
     dependency: transitive
