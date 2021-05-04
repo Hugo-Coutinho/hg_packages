@@ -17,11 +17,11 @@ dependencies:
   sembast: 3.0.2
   path_provider: 2.0.1
   core:
-    git:
-      url: git@github.com:Hugo-Coutinho/feeds_packages.git
-      path: packages/core
-      ref: master
-#    path: /Users/hugo.coutinho/Developer/personal/feeds_packages/packages/core
+#    git:
+#      url: git@github.com:Hugo-Coutinho/hg_packages.git
+#      path: packages/core
+#      ref: master
+    path: /Users/hugo.coutinho/Developer/personal/hg_packages/packages/core
 
 
 dev_dependencies:

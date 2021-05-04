@@ -1,7 +1,4 @@
-library scrapy;
-
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'package:analyzer/exception/exception.dart';
+export 'core/get_it/injection_container.dart';
+export 'model/scrapping_model.dart';
+export 'package:scrapy/scraperManager/scraperManager.dart';

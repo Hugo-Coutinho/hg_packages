@@ -1,4 +1,4 @@
-name: scrapy
+name: local_push_notification
 description: A new Flutter package project.
 version: 0.0.1
 author:
@@ -13,16 +13,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  flutter_local_notifications: 5.0.0+3
   core:
 #    git:
 #      url: git@github.com:Hugo-Coutinho/hg_packages.git
 #      path: packages/core
 #      ref: master
       path: /Users/hugo.coutinho/Developer/personal/hg_packages/packages/core
-
-  web_scraper: 0.0.9
-
 
 dev_dependencies:
   flutter_test:
