@@ -16,7 +16,7 @@ class ScraperManagerImpl extends ScraperManager {
   @override
   Future<Either<ScraperException, List<String>>> scrapping(ScrappingModel model) async {
     _webScraper.baseUrl = model.domain;
-    if (await _webScraper.loadWebPage(model.path)) {
+    if (await _iswebPageLoaded(model.path)) {
       List<String> elements = _webScraper.getElementTitle(model.address);
       if (elements.isEmpty) { _logger.e('web scrapy it was empty'); return Left(ScraperException()); }
       _logger.i('web extract successfully worked\n $elements');
@@ -24,5 +24,14 @@ class ScraperManagerImpl extends ScraperManager {
     }
     _logger.wtf('error from loading web page');
     return Left(ScraperException());
+  }
+
+  Future<bool> _iswebPageLoaded(String path) async {
+    var isPageLoaded = true;
+    await _webScraper.loadWebPage(path).catchError((error) {
+      _logger.wtf('Scrapping loading page throw exception: $error');
+      isPageLoaded = false;
+    });
+    return isPageLoaded;
   }
 }

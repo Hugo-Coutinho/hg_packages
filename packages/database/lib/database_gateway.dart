@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:database/store_name.dart';
 import 'package:sembast/sembast.dart';
+import 'package:core/core.dart';
 
 abstract class DatabaseGateway {
   Future create(String id, Map<String, dynamic> map, StoreName store);
@@ -14,20 +15,20 @@ class DatabaseGatewayImpl extends DatabaseGateway {
 
   @override
   Future create(String id, Map<String, dynamic> map, StoreName store) async {
-    final storeMap = stringMapStoreFactory.store(store.toShortString());
+    final storeMap = stringMapStoreFactory.store(store.rawValue());
     await storeMap.record(id).put(_db, map);
   }
 
   @override
   Future<List<Map<String, dynamic>>> findAll(StoreName store) async {
-    final storeMap = stringMapStoreFactory.store(store.toShortString());
+    final storeMap = stringMapStoreFactory.store(store.rawValue());
     final allRecords = await storeMap.find(_db);
     return allRecords.map((record) => record.value).toList();
   }
 
   @override
   Future remove(String id, StoreName store) async {
-    final storeMap = stringMapStoreFactory.store(store.toShortString());
+    final storeMap = stringMapStoreFactory.store(store.rawValue());
     await storeMap.record(id).delete(_db);
   }
 }

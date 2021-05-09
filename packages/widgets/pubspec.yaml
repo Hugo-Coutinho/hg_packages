@@ -12,6 +12,16 @@ dependencies:
   flutter:
     sdk: flutter
 
+
+  core:
+    #    git:
+    #      url: git@github.com:Hugo-Coutinho/hg_packages.git
+    #      path: packages/core
+    #      ref: master
+    path: /Users/hugo.coutinho/Developer/personal/hg_packages/packages/core
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
