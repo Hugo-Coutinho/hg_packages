@@ -21,6 +21,10 @@ dependencies:
   mockito: 5.0.5
   flutter_share: 2.0.0
   cached_network_image: 2.5.0
+  provider: 5.0.0
+  data_connection_checker: 0.3.4
+  shared_preferences: 2.0.3
+  lottie: 1.0.1
 
 dev_dependencies:
   flutter_test:

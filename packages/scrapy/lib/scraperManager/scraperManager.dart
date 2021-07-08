@@ -1,11 +1,9 @@
 import 'package:scrapy/core/exception/scrapy_exception.dart';
-import 'package:scrapy/model/scrapping_model.dart';
 import 'package:web_scraper/web_scraper.dart';
-import 'package:dartz/dartz.dart';
 import 'package:logger/logger.dart';
 
 abstract class ScraperManager {
-  Future<Either<ScraperException, List<String>>> scrapping(ScrappingModel model);
+  Future<List<String>> scrapping(String domain, String path, String address);
 }
 
 class ScraperManagerImpl extends ScraperManager {
@@ -14,24 +12,32 @@ class ScraperManagerImpl extends ScraperManager {
   ScraperManagerImpl(this._logger, this._webScraper);
 
   @override
-  Future<Either<ScraperException, List<String>>> scrapping(ScrappingModel model) async {
-    _webScraper.baseUrl = model.domain;
-    if (await _iswebPageLoaded(model.path)) {
-      List<String> elements = _webScraper.getElementTitle(model.address);
-      if (elements.isEmpty) { _logger.e('web scrapy it was empty'); return Left(ScraperException()); }
-      _logger.i('web extract successfully worked\n $elements');
-      return Right(elements);
+  Future<List<String>> scrapping(String domain, String path, String address) async {
+    _webScraper.baseUrl = domain;
+    try {
+      if (await _isWebPageLoaded(path)) {
+        List<String> elements = _webScraper.getElementTitle(address);
+        if (elements.isEmpty) { _logger.e('web scrapy it was empty'); throw ScraperException(); }
+        _logger.i('web extract successfully worked\n $elements');
+        return elements;
+      } else {
+        throw ScraperException();
+      }
+    } catch(e) {
+      _logger.wtf('error from loading web page');
+      throw ScraperException();
     }
-    _logger.wtf('error from loading web page');
-    return Left(ScraperException());
   }
 
-  Future<bool> _iswebPageLoaded(String path) async {
+  Future<bool> _isWebPageLoaded(String path) async {
     var isPageLoaded = true;
-    await _webScraper.loadWebPage(path).catchError((error) {
-      _logger.wtf('Scrapping loading page throw exception: $error');
-      isPageLoaded = false;
-    });
-    return isPageLoaded;
+    try {
+      await _webScraper.loadWebPage(path);
+      return isPageLoaded;
+    } catch(e) {
+    _logger.wtf('Scrapping loading page throw exception: $e');
+    isPageLoaded = false;
+    throw ScraperException();
+    }
   }
 }

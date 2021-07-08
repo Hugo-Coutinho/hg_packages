@@ -1,0 +1,1 @@
+class DatabaseGatewayException implements Exception {}

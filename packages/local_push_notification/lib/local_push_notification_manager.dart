@@ -3,6 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 abstract class LocalPushNotificationManager {
   Future showNotificationDaily(int id, String title, String body, int hour, int minute);
+  Future cancelNotification();
 }
 
 class LocalPushNotificationManagerImpl extends LocalPushNotificationManager {
@@ -11,6 +12,13 @@ class LocalPushNotificationManagerImpl extends LocalPushNotificationManager {
 
   LocalPushNotificationManagerImpl(this._flutterLocalNotificationsPlugin, this._logger, String androidIcon) {
     _initNotifications(androidIcon);
+  }
+
+  _initNotifications(String androidIcon) {
+    var initializationSettingsAndroid = AndroidInitializationSettings(androidIcon);
+    var initializationSettingsIOS = IOSInitializationSettings(onDidReceiveLocalNotification: _onDidReceiveLocalNotification);
+    var initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    _flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: _onSelectNotification);
   }
 
   @override
@@ -23,12 +31,10 @@ class LocalPushNotificationManagerImpl extends LocalPushNotificationManager {
     _logger.i('Notification Succesfully Scheduled at $time');
   }
 
-  _initNotifications(String androidIcon) {
-    var initializationSettingsAndroid = AndroidInitializationSettings(androidIcon);
-    var initializationSettingsIOS = IOSInitializationSettings(onDidReceiveLocalNotification: _onDidReceiveLocalNotification);
-    var initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    _flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: _onSelectNotification);
+  Future cancelNotification() async {
+    await _flutterLocalNotificationsPlugin.cancelAll();
   }
+
 
   NotificationDetails _getPlatformChannelSpecfics() {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
