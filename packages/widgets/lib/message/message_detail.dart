@@ -1,49 +1,31 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:widgets/constant/constant.dart';
+import 'package:widgets/widgets.dart';
 
 class MessageDetail extends StatelessWidget {
+  final String imageUrl;
+  final String message;
+  final Color backgroundColor;
 
-  // "https://cdn.faithgateway.com/uploads/2018/10/praying-400.png"
-  // "Blur Background Image in Flutter Blur Background Image in FlutterBlur Background\n Image in FlutterBlur Background Image in FlutterBlur Background Image\n in FlutterBlur Background Image in FlutterBlur Background Image in FlutterBlur Background Image in Flutter Blur Background Image in Flutter Blur Background Image in FlutterBlur Background\n Image in FlutterBlur Background Image in FlutterBlur Background Image\n in FlutterBlur Background Image in FlutterBlur Background Image in FlutterBlur Background Image in Flutter\n Blur Background Image in Flutter Blur Background Image in FlutterBlur Background\n Image in FlutterBlur Background Image in FlutterBlur Background Image\n in FlutterBlur Background Image in FlutterBlur Background Image in FlutterBlur Background Image in Flutter Blur Background Image in Flutter Blur Background Image in FlutterBlur Background\n Image in FlutterBlur Background Image in FlutterBlur Background Image\n in FlutterBlur Background Image in FlutterBlur Background Image in FlutterBlur Background Image in FlutterBlur Background Image in Flutter Blur Background Image in FlutterBlur Background\n Image in FlutterBlur Background Image in FlutterBlur Background Image\n in FlutterBlur Background Image in FlutterBlur Background Image in FlutterBlur Background Image in Flutter Blur Background Image in Flutter Blur Background Image in FlutterBlur Background\n Image in FlutterBlur Background Image in FlutterBlur Background Image\n in FlutterBlur Background Image in FlutterBlur Background Image in FlutterBlur Background Image in Flutter\n Blur Background Image in Flutter Blur Background Image in FlutterBlur Background\n Image in FlutterBlur Background Image in FlutterBlur Background Image\n in FlutterBlur Background Image in FlutterBlur Background Image in FlutterBlur Background Image in Flutter Blur Background Image in Flutter Blur Background Image in FlutterBlur Background\n Image in FlutterBlur Background Image in FlutterBlur Background Image\n in FlutterBlur Background Image in FlutterBlur Background Image in FlutterBlur Background Image in Flutter"
-  final String _imageUrl;
-  final String _message;
-
-  MessageDetail(this._imageUrl, this._message);
+  MessageDetail({ this.imageUrl, this.message, this.backgroundColor });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: backgroundColor,
       appBar:  AppBar(
         backgroundColor: Colors.grey.withOpacity(0),
         elevation: 0,
       ),
       body: CachedNetworkImage(
-        imageUrl: _imageUrl,
+        imageUrl: imageUrl,
         imageBuilder: (context, imageProvider) =>
-            Container(
-              decoration: _buildBackgroundImage(imageProvider),
-              child: _buildBlurWidget(SizedBox(
-                width: double.infinity,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 0),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 20),
-                        _buildShareButton(context),
-                        _buildBlurWidget(_buildText()),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              ),
-            ),
-        placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-        errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
-      ),
+          _build(context, imageProvider),
+        placeholder: (context, url) => Center(child: Loading()),
+        errorWidget: (context, url, error) => _build(context, Image.asset(defaultBackgroundImageAsset).image)),
     );
   }
 
@@ -52,18 +34,38 @@ class MessageDetail extends StatelessWidget {
       colorFilter: ColorFilter.mode(
           Colors.black54.withOpacity(.3), BlendMode.hardLight),
       image: imageProvider,
-      // image: Image.network('https://cdn.faithgateway.com/uploads/2018/10/praying-400.png').image,
       fit: BoxFit.cover,
     ),
   );
 
+  Widget _build(BuildContext context, ImageProvider currentImage) =>
+      Container(
+        decoration: _buildBackgroundImage(currentImage),
+        child: _buildBlurWidget(SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  _buildShareButton(context),
+                  _buildBlurWidget(_buildText()),
+                ],
+              ),
+            ),
+          ),
+        ),
+        ),
+      );
+
   Widget _buildText() => Padding(
     padding: const EdgeInsets.all(11.0),
     child: Text(
-          _message,
+          message,
           textAlign: TextAlign.center,
           maxLines: 24,
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
         ),
   );
 

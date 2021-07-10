@@ -4,6 +4,7 @@ class BouncyPageRoute extends PageRouteBuilder {
   final Widget widget;
 
   BouncyPageRoute({ this.widget }): super(
+    barrierColor: Colors.yellow[100],
       transitionDuration: Duration(seconds: 1),
       transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secAnimation, Widget child) {
         animation = CurvedAnimation(parent: animation, curve: Curves.elasticInOut);

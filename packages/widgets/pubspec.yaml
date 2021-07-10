@@ -41,6 +41,7 @@ flutter:
      - lib/assets/loading.json
      - lib/assets/error.json
      - lib/assets/network_error.json
+     - lib/assets/default_background_image.png
 #     - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   #

@@ -21,6 +21,9 @@ class _MessageState extends State<Message> with TickerProviderStateMixin {
   // Animations
   Animation colorAnimation;
   AnimationController colorAnimationController;
+  ImageProvider _messageImage;
+  var _imageStreamListener;
+  final _imageConfiguration = ImageConfiguration();
 
   initState() {
     super.initState();
@@ -28,11 +31,7 @@ class _MessageState extends State<Message> with TickerProviderStateMixin {
         duration: const Duration(milliseconds: 700), vsync: this);
     colorAnimation =
         Tween(begin: 1.0, end: .5).animate(colorAnimationController);
-  }
-
-  dispose() {
-    super.dispose();
-    colorAnimationController.dispose();
+    _messageImage = _settingImageListener();
   }
 
   @override
@@ -45,15 +44,14 @@ class _MessageState extends State<Message> with TickerProviderStateMixin {
     );
   }
 
-  _buildItem(context) {
-    // String url = 'https://veja.abril.com.br/wp-content/uploads/2019/12/49175448521_774ccf3962_b.jpg';
-    var image = Image.network(widget.imageUrl).image;
-    image
-        .resolve(ImageConfiguration())
-        .addListener(new ImageStreamListener((ImageInfo image, bool synchronousCall) {
-         colorAnimationController.forward();
-           }));
+  @override
+  dispose() {
+    _messageImage.resolve(_imageConfiguration).removeListener(_imageStreamListener);
+    colorAnimationController.dispose();
+    super.dispose();
+  }
 
+  _buildItem(context) {
     return Container(
       height: 150,
       child: InkWell(
@@ -73,7 +71,8 @@ class _MessageState extends State<Message> with TickerProviderStateMixin {
                           Colors.black54.withOpacity(colorAnimation.value),
                           BlendMode.hardLight),
                       fit: BoxFit.cover,
-                      image: image),
+                      image: _messageImage),
+                      // image: image),
                 ),
                 child: _columnWithContent(),
               ),
@@ -96,10 +95,6 @@ class _MessageState extends State<Message> with TickerProviderStateMixin {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        // Text(
-        //   'row testing',
-        //   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        // ),
         Container(
           child: Row(
             children: <Widget>[
@@ -112,15 +107,6 @@ class _MessageState extends State<Message> with TickerProviderStateMixin {
                   widget.copyMessageCallback();
                 },
               ),
-              // IconButton(
-              //   icon: Icon(
-              //     Icons.favorite,
-              //     color: Theme.of(context).accentColor,
-              //   ),
-              //   onPressed: () => {
-              //     print('click to favorite')
-              //   },
-              // ),
             ],
           ),
         ),
@@ -129,19 +115,9 @@ class _MessageState extends State<Message> with TickerProviderStateMixin {
   }
 
   _dateItemBuild() {
-    // Parse date to normal format
-    // DateFormat format = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    // final unformedDate = format.parse('1997-14-07');
-    // Duration difference = unformedDate.difference(DateTime.now());
-
     return Container(
       padding: EdgeInsets.only(top: 12),
-      // final date = '14/07/1997 14:00';
-      child: Text(widget.date
-        // (int.tryParse(difference.inHours.abs().toString()) < 12)
-        //     ? difference.inHours.abs().toString() + " hours ago"
-        //     : difference.inDays.abs().toString() + " days ago"
-            ,
+      child: Text(widget.date,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
       ),
       alignment: Alignment.centerLeft,
@@ -158,5 +134,15 @@ class _MessageState extends State<Message> with TickerProviderStateMixin {
             fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
       ),
     );
+  }
+
+  ImageProvider _settingImageListener() {
+    _imageStreamListener =
+        ImageStreamListener((ImageInfo image, bool synchronousCall) {
+          colorAnimationController.forward();
+        });
+    var image = Image.network(widget.imageUrl).image;
+    image.resolve(_imageConfiguration).addListener(_imageStreamListener);
+    return image;
   }
 }
