@@ -18,13 +18,14 @@ class ScraperManagerImpl extends ScraperManager {
       if (await _isWebPageLoaded(path)) {
         List<String> elements = _webScraper.getElementTitle(address);
         if (elements.isEmpty) { _logger.e('web scrapy it was empty'); throw ScraperException(); }
-        _logger.i('web extract successfully worked\n $elements');
+        _logger.i('web extract successfully worked\n with ${elements.length} elements');
         return elements;
       } else {
+        _logger.wtf('error from extracting web page');
         throw ScraperException();
       }
     } catch(e) {
-      _logger.wtf('error from loading web page');
+      _logger.wtf('error from extracting web page');
       throw ScraperException();
     }
   }
