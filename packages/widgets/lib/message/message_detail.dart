@@ -8,8 +8,9 @@ class MessageDetail extends StatelessWidget {
   final String imageUrl;
   final String message;
   final Color backgroundColor;
+  final Function copyPressed;
 
-  MessageDetail({ this.imageUrl, this.message, this.backgroundColor });
+  MessageDetail({ this.imageUrl, this.message, this.backgroundColor, this.copyPressed });
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +76,7 @@ class MessageDetail extends StatelessWidget {
           color: Theme.of(context).accentColor,
         ),
         onPressed: () {
-          print('share click');
+          copyPressed(context);
         },
       );
 

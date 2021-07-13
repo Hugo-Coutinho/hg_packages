@@ -28,7 +28,7 @@ class LocalPushNotificationManagerImpl extends LocalPushNotificationManager {
         .catchError((error) {
       _logger.e('Notification Scheduled catch ERROR: ${error.toString()}');
     });
-    _logger.i('Notification Succesfully Scheduled at $time');
+    _logger.i('Notification Succesfully Scheduled at ${time.hour}: ${time.minute}');
   }
 
   Future cancelNotification() async {
