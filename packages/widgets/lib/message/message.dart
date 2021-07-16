@@ -28,7 +28,7 @@ class _MessageState extends State<Message> with TickerProviderStateMixin {
   initState() {
     super.initState();
     colorAnimationController = AnimationController(
-        duration: const Duration(milliseconds: 700), vsync: this);
+        duration: const Duration(milliseconds: 400), vsync: this);
     colorAnimation =
         Tween(begin: 1.0, end: .5).animate(colorAnimationController);
     _messageImage = _settingImageListener();

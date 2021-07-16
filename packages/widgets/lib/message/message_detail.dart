@@ -14,19 +14,21 @@ class MessageDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: backgroundColor,
-      appBar:  AppBar(
-        backgroundColor: Colors.grey.withOpacity(0),
-        elevation: 0,
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        backgroundColor: backgroundColor,
+        appBar:  AppBar(
+          backgroundColor: Colors.grey.withOpacity(0),
+          elevation: 0,
+        ),
+        body: CachedNetworkImage(
+          imageUrl: imageUrl,
+          imageBuilder: (context, imageProvider) =>
+            _build(context, imageProvider),
+          placeholder: (context, url) => Center(child: Loading()),
+          errorWidget: (context, url, error) => _build(context, Image.asset(defaultBackgroundImageAsset).image)),
       ),
-      body: CachedNetworkImage(
-        imageUrl: imageUrl,
-        imageBuilder: (context, imageProvider) =>
-          _build(context, imageProvider),
-        placeholder: (context, url) => Center(child: Loading()),
-        errorWidget: (context, url, error) => _build(context, Image.asset(defaultBackgroundImageAsset).image)),
     );
   }
 
@@ -65,7 +67,6 @@ class MessageDetail extends StatelessWidget {
     child: Text(
           message,
           textAlign: TextAlign.center,
-          maxLines: 24,
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
         ),
   );

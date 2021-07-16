@@ -125,7 +125,7 @@ packages:
     description:
       path: "packages/core"
       ref: master
-      resolved-ref: a1c26f41c40ef79e92faae487a22cc2a1b1814b8
+      resolved-ref: b523b7ed9765ee1ef63b89d09191c3ada48b09fc
       url: "https://github.com/Hugo-Coutinho/hg_packages.git"
     source: git
     version: "0.0.1"
@@ -210,14 +210,14 @@ packages:
       name: flutter_local_notifications
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0+3"
+    version: "6.0.0"
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
       name: flutter_local_notifications_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "4.0.0"
   flutter_localizations:
     dependency: transitive
     description: flutter
@@ -632,4 +632,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
-  flutter: ">=1.24.0-10"
+  flutter: ">=2.2.0"
