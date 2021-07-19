@@ -25,6 +25,7 @@ dependencies:
   data_connection_checker: 0.3.4
   shared_preferences: 2.0.3
   lottie: 1.0.1
+  google_mobile_ads: 0.13.2
 
 dev_dependencies:
   flutter_test:
