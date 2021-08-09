@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class BouncyPageRoute extends PageRouteBuilder {
   final Widget widget;
+  final Color barrierColor;
 
-  BouncyPageRoute({ this.widget }): super(
-    barrierColor: Colors.yellow[100],
+
+  BouncyPageRoute({ this.barrierColor, this.widget }): super(
+    barrierColor: barrierColor,
       transitionDuration: Duration(seconds: 1),
       transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secAnimation, Widget child) {
         animation = CurvedAnimation(parent: animation, curve: Curves.elasticInOut);

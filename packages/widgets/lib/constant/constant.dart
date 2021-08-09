@@ -9,3 +9,6 @@ String defaultBackgroundImageAsset = baseAsset + "default_background_image.png";
 
 // COLORS
 Color faithBackgroundColor = Colors.yellow[50];
+Color inspirationalBackgroundColor = Colors.blue[50];
+Color faithBarrierColor = Colors.yellow[100];
+Color inspirationalBarrierColor = Colors.blue[100];

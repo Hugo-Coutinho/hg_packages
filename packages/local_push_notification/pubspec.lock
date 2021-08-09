@@ -125,7 +125,7 @@ packages:
     description:
       path: "packages/core"
       ref: master
-      resolved-ref: b523b7ed9765ee1ef63b89d09191c3ada48b09fc
+      resolved-ref: aebb1b9057e35fa9b62415fffcdbbcd3e9cae4e0
       url: "https://github.com/Hugo-Coutinho/hg_packages.git"
     source: git
     version: "0.0.1"
@@ -254,6 +254,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  google_mobile_ads:
+    dependency: transitive
+    description:
+      name: google_mobile_ads
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.2"
   http:
     dependency: transitive
     description:

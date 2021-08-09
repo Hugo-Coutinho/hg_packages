@@ -15,10 +15,10 @@ dependencies:
 
 
   core:
-        git:
-          url: https://github.com/Hugo-Coutinho/hg_packages.git
-          path: packages/core
-          ref: master
+    git:
+      url: https://github.com/Hugo-Coutinho/hg_packages.git
+      path: packages/core
+      ref: master
 #    path: /Users/hugo.coutinho/Developer/personal/hg_packages/packages/core
 
 
